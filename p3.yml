@@ -1,22 +1,14 @@
----
-- name: Connect to container with SSH
-  hosts: all
-  gather_facts: no
-
-  vars:
-    container_ip: "172.17.0.2"
-    ssh_user: "yuvraj"
-
+- name: Run Docker container
+  hosts: containers
+  become: true
   tasks:
-    - name: Set SSH connection parameters
-      set_fact:
-        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
-        ansible_user: "{{ ssh_user }}"
+    - name: Pull Docker image
+      docker_image:
+        name: yuvrajsharma2000/docker_image_calculator
+        source: pull
 
-    - name: Connect to container with SSH
-      wait_for_connection:
-        host: "{{ container_ip }}"
-        port: 22
-        connect_timeout: 5
-
-    # Add more tasks here to perform actions on the container using SSH
+    - name: Run Docker container
+      docker_container:
+        name: my-calculator
+        image: yuvrajsharma2000/docker_image_calculator
+        state: started  
