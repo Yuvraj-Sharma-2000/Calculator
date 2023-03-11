@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Image Deploy') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'yuvrajsharma2000', passwordVariable: 'Centra@5848')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'yuvrajsharma2000', passwordVariable: 'Cekjb.ntra@5848')]) {
                     sh "docker login -u yuvrajsharma2000 -p Centra@5848"
 //                     sh "docker tag docker_image_calculator:latest registry.example.com/docker_image_calculator:latest"
                     sh "docker push docker_image_calculator:latest"
