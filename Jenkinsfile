@@ -31,13 +31,14 @@ pipeline {
         }
         stage('Image Deploy') {
             steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                    }
+                withCredentials([usernamePassword(credentialsId: 'REGISTRY_CREDENTIALS', usernameVariable: 'yuvrajsharma2000', passwordVariable: 'Centra@5848')]) {
+                    sh "docker login -u yuvrajsharma2000 -p Centra@5848"
+                    sh "docker tag docker_image_calculator:latest registry.example.com/docker_image_calculator:latest"
+                    sh "docker push registry.example.com/docker_image_calculator:latest"
                 }
             }
         }
+
 
         stage('Ansible Deploy'){
             steps{
