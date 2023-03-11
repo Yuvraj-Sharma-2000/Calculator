@@ -26,7 +26,7 @@ pipeline {
             }
         stage('Image Build'){
             steps{
-                sh "docker build -t docker-image-calculator:latest"
+                sh "docker build -t docker_image_calculator:latest"
             }
         }
         stage('Image Deploy') {
