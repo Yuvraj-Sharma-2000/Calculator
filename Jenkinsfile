@@ -33,8 +33,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'yuvrajsharma2000', passwordVariable: 'Centra@5848')]) {
                     sh "docker login -u yuvrajsharma2000 -p Centra@5848"
-                    sh "docker tag docker_image_calculator:latest registry.example.com/docker_image_calculator:latest"
-                    sh "docker push registry.example.com/docker_image_calculator:latest"
+//                     sh "docker tag docker_image_calculator:latest registry.example.com/docker_image_calculator:latest"
+                    sh "docker push yuvrajsharma2000/calculator/docker_image_calculator:latest"
                 }
             }
         }
