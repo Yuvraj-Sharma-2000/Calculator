@@ -26,9 +26,7 @@ pipeline {
             }
         stage('Image Build'){
             steps{
-                script {
-                    dockerImage = docker.build(registry + ":latest")
-                }
+                sh "docker build -t docker-image-calculator:latest"
             }
         }
         stage('Image Deploy') {
