@@ -1,2 +1,2 @@
 [containers]
-127.0.0.1 ansible_user=ansible_usr ansible_sudo_pass=password anisble_ssh_pass=password
+127.0.1.1 ansible_user=ansible_usr ansible_sudo_pass=password anisble_ssh_pass=password
