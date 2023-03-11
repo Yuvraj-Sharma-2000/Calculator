@@ -1,6 +1,22 @@
 ---
-- name: Example playbook
-  hosts: web
+- name: Connect to container with SSH
+  hosts: all
+  gather_facts: no
+
+  vars:
+    container_ip: "172.17.0.2"
+    ssh_user: "yuvraj"
+
   tasks:
-    - name: Run a command on all hosts
-      shell: echo "Hello, world!"
+    - name: Set SSH connection parameters
+      set_fact:
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+        ansible_user: "{{ ssh_user }}"
+
+    - name: Connect to container with SSH
+      wait_for_connection:
+        host: "{{ container_ip }}"
+        port: 22
+        connect_timeout: 5
+
+    # Add more tasks here to perform actions on the container using SSH
