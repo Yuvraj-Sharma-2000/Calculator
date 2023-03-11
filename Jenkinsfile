@@ -26,16 +26,19 @@ pipeline {
             }
         stage('Image Build'){
             steps{
-                dockerImage = docker.build registry + ":latest"
+                dockerImage = docker.build(registry + ":latest")
             }
         }
-        stage('Image Deploy'){
-            steps{
-                docker.withRegistry('',registryCredential){
+        stage('Image Deploy') {
+              steps {
+                script {
+                  docker.withRegistry('', registryCredential) {
                     dockerImage.push()
-                }
+                  }
+               }
             }
-        }
+         }
+
         stage('Ansible Deploy'){
             steps{
                 ansiblePlaybook colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'p3.yml'
