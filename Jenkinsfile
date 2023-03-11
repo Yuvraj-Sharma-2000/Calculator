@@ -2,6 +2,7 @@ pipeline {
     agent any
     
     environment {
+        LANG = 'en_US.UTF-8'
         registry = "yuvrajsharma2000/calculator"
         registryCredential = 'dockerhub'
         dockerImage = ''
@@ -38,12 +39,15 @@ pipeline {
                 }
             }
         }
-
-
-
-        stage('Ansible Deploy'){
-            steps{
-                ansiblePlaybook colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'p3.yml'
+        stage('Ansible Deploy') {
+            steps {
+                ansiblePlaybook(
+                    installation: 'Ansible',
+                    inventory: 'inventory',
+                    playbook: 'p3.yml',
+                    colorized: true,
+                    disableHostKeyChecking: true
+                )
             }
         }
     }
