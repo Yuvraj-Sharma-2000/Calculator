@@ -30,20 +30,18 @@ pipeline {
             }
         }
         stage('Image Deploy') {
-              steps {
+            steps {
                 script {
-                  docker.withRegistry('', registryCredential) {
-                    dockerImage.push()
-                  }
-               }
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
             }
-         }
-
+        }
         stage('Ansible Deploy'){
             steps{
                 ansiblePlaybook colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'p3.yml'
             }
-        }
         }
     }
 
@@ -51,3 +49,4 @@ pipeline {
         skipDefaultCheckout()
         timestamps()
     }
+}
