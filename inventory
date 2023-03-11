@@ -1,2 +1,2 @@
 [containers]
-172.17.0.2 ansible_user=yuvraj
+127.0.0.1 ansible_user=ansible_usr ansible_ssh_pass=password
