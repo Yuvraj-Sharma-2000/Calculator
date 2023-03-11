@@ -1,0 +1,6 @@
+---
+- name: Example playbook
+  hosts: web
+  tasks:
+    - name: Run a command on all hosts
+      shell: echo "Hello, world!"
