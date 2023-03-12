@@ -57,11 +57,13 @@ pipeline {
             sh "docker stats my-calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
 
             // Send logs and metrics to Elasticsearch
-            logstash(
-              pluginVersion: '1.4.2',
-              config: "input { file { path => '/usr/share/logstash/data/my-calculator.log' start_position => 'beginning' sincedb_path => '/dev/null' } } filter { csv { separator => ',' columns => ['container_name', 'cpu_percent', 'mem_usage', 'net_io', 'block_io', 'pids'] } } output { elasticsearch { hosts => ['elasticsearch:9200'] index => 'my-calculator-%{+YYYY.MM.dd}' } }"
-            )
-          }
+            logstash {
+              pluginVersion '2.5.0205.vd05825ed46bd'
+              host '127.0.0.1'
+              port 5044
+              ssl false
+              config "input { file { path => '/usr/share/logstash/data/my-app.log' start_position => 'beginning' sincedb_path => '/dev/null' } } filter { csv { separator => ',' columns => ['container_name', 'cpu_percent', 'mem_usage', 'net_io', 'block_io', 'pids'] } } output { elasticsearch { hosts => ['elasticsearch:9200'] index => 'my-app-%{+YYYY.MM.dd}' } }"
+            }
         }
         stage('Ansible Deploy') {
             steps {
