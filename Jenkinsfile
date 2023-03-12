@@ -50,18 +50,7 @@ pipeline {
           }
         }
 
-        stage('Monitor') {
-          steps {
-            // Collect logs and metrics
-            sh "docker logs calculator > my-calculator.log"
-            sh "docker stats my-calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
-
-            // Send logs and metrics to Elasticsearch
-            logstash {
-                configFile '/path/to/new/elk/directory/logstash.conf'
-            }
-          }
-        }
+       
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
