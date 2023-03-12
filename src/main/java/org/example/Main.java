@@ -7,20 +7,23 @@ public class Main {
         calculator();
     }
 
-    public static void calculator() {
-        Scanner scanner = new Scanner(System.in);
-        int choice = 0;
+public static void calculator() {
+    Scanner scanner = new Scanner(System.in);
+    int choice = 0;
 
-        do {
-            System.out.println("Scientific Calculator");
-            System.out.println("---------------------");
-            System.out.println("1. Square root function - √x");
-            System.out.println("2. Factorial function - x!");
-            System.out.println("3. Natural logarithm (base е) - ln(x)");
-            System.out.println("4. Power function - x^y");
-            System.out.println("0. Exit");
+    do {
+        System.out.println("Scientific Calculator");
+        System.out.println("---------------------");
+        System.out.println("1. Square root function - √x");
+        System.out.println("2. Factorial function - x!");
+        System.out.println("3. Natural logarithm (base е) - ln(x)");
+        System.out.println("4. Power function - x^y");
+        System.out.println("0. Exit");
 
-            System.out.print("Enter your choice: ");
+        System.out.print("Enter your choice: ");
+
+        // Check if there is more input to be read
+        if (scanner.hasNextInt()) {
             choice = scanner.nextInt();
 
             switch(choice) {
@@ -56,10 +59,14 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while(choice != 0);
+        } else {
+            // If there is no more input, break out of the loop
+            break;
+        }
+    } while(choice != 0);
 
-        scanner.close();
-    }
+    scanner.close();
+}
 
     public static double getPow(double powerBase, double powerExponent) {
         return Math.pow(powerBase, powerExponent);
