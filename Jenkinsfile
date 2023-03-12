@@ -25,9 +25,9 @@ pipeline {
                     sh "mvn test"
                 }
             }
-        stage('Delete Past Docker Image') {
+        stage('Remove Docker image with no tag') {
             steps {
-                sh "docker images | grep none | awk '{print $3}' | xargs docker rmi --force"
+                sh 'docker rmi $(docker images -f "dangling=true" -q)'
             }
         }
 
