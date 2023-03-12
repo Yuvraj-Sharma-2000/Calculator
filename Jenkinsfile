@@ -49,17 +49,19 @@ pipeline {
             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
           }
         }
-        stage('Monitor') {
-          steps {
-            sh "docker logs yuvrajsharma2000/docker_image_calculator > my-calculator.log"
-            sh "docker stats yuvrajsharma2000/docker_image_calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
 
-            logstash(
-              pluginVersion: '1.4.2',
-              config: "input { file { path => '/usr/share/logstash/data/my-calculator.log' start_position => 'beginning' sincedb_path => '/dev/null' } } filter { csv { separator => ',' columns => ['container_name', 'cpu_percent', 'mem_usage', 'net_io', 'block_io', 'pids'] } } output { elasticsearch { hosts => ['elasticsearch:9200'] index => 'my-calculator-%{+YYYY.MM.dd}' } }"
-            )
+        stage('Monitor') {
+              steps {
+                sh "docker logs calculator > my-calculator.log"
+                sh "docker stats calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
+
+                logstash(
+                  pluginVersion: '1.4.2',
+                  config: "input { file { path => '/usr/share/logstash/data/my-calculator.log' start_position => 'beginning' sincedb_path => '/dev/null' } } filter { csv { separator => ',' columns => ['container_name', 'cpu_percent', 'mem_usage', 'net_io', 'block_io', 'pids'] } } output { elasticsearch { hosts => ['elasticsearch:9200'] index => 'my-calculator-%{+YYYY.MM.dd}' } }"
+                )
           }
         }
+
 
         stage('Ansible Deploy') {
             steps {
