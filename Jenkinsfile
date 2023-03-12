@@ -25,12 +25,6 @@ pipeline {
                     sh "mvn test"
                 }
             }
-        stage('Remove Docker image with no tag') {
-            steps {
-                sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
-            }
-        }
-
         stage('Image Build'){
             steps{
                 sh "docker build -t yuvrajsharma2000/docker_image_calculator:latest ."
@@ -45,20 +39,23 @@ pipeline {
                 }
             }
         }
-        stage('Monitor') {
+        stage('Remove Docker image with no tag') {
             steps {
-                // Start Docker container
-                sh "docker run -d --name my-calculator yuvrajsharma2000/docker_image_calculator"
-                // Collect logs and metrics
-                sh "docker logs my-calculator > my-calculator.log"
-                sh "docker stats my-calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
-
-                // Send logs and metrics to Elasticsearch
-                logstash {
-                    configFile 'logstash.conf'
-                }
+                sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
             }
         }
+        stage('Monitor') {
+          steps {
+            sh "docker logs yuvrajsharma2000/docker_image_calculator > my-calculator.log"
+            sh "docker stats yuvrajsharma2000/docker_image_calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
+
+            logstash(
+              pluginVersion: '1.4.2',
+              config: "input { file { path => '/usr/share/logstash/data/my-calculator.log' start_position => 'beginning' sincedb_path => '/dev/null' } } filter { csv { separator => ',' columns => ['container_name', 'cpu_percent', 'mem_usage', 'net_io', 'block_io', 'pids'] } } output { elasticsearch { hosts => ['elasticsearch:9200'] index => 'my-calculator-%{+YYYY.MM.dd}' } }"
+            )
+          }
+        }
+
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
