@@ -58,7 +58,7 @@ pipeline {
 
             // Send logs and metrics to Elasticsearch
             logstash {
-              pluginVersion '2.5.0205.vd05825ed46bd'
+//               pluginVersion '2.5.0205.vd05825ed46bd'
               host '127.0.0.1'
               port 5044
               ssl false
