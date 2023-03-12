@@ -82,4 +82,5 @@ pipeline {
         skipDefaultCheckout()
         timestamps()
     }
+  }
 }
