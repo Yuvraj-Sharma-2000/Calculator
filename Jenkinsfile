@@ -27,7 +27,7 @@ pipeline {
             }
         stage('Remove Docker image with no tag') {
             steps {
-                sh 'docker rmi $(docker images -f "dangling=true" -q)'
+                sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
             }
         }
 
