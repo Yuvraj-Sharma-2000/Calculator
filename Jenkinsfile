@@ -27,12 +27,7 @@ pipeline {
             }
         stage('Delete Past Docker Image') {
             steps {
-                sh '''
-                    IMAGE_ID=$(docker images | awk '$2 == "<none>" {print $3}')
-                    if [ -n "$IMAGE_ID" ]; then
-                      docker rmi -f "$IMAGE_ID"
-                    fi
-                '''
+                sh "docker images | grep none | awk '{print $3}' | xargs docker rmi --force"
             }
         }
 
