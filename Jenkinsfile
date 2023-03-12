@@ -39,11 +39,6 @@ pipeline {
                 }
             }
         }
-        stage('Remove Local Image'){
-            steps{
-                sh "docker rmi -f yuvrajsharma2000/docker_image_calculator:latest"
-            }
-        }
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
