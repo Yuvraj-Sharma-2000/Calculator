@@ -44,6 +44,11 @@ pipeline {
                 sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
             }
         }
+        stage('Start Container') {
+          steps {
+            sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
+          }
+        }
         stage('Monitor') {
           steps {
             sh "docker logs yuvrajsharma2000/docker_image_calculator > my-calculator.log"
