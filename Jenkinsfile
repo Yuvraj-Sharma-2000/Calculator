@@ -47,9 +47,11 @@ pipeline {
         }
         stage('Monitor') {
             steps {
+                // Start Docker container
+                sh "docker run -d --name my-calculator yuvrajsharma2000/docker_image_calculator"
                 // Collect logs and metrics
-                sh "docker logs yuvrajsharma2000/docker_image_calculator > my-calculator.log"
-                sh "docker stats yuvrajsharma2000/docker_image_calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
+                sh "docker logs my-calculator > my-calculator.log"
+                sh "docker stats my-calculator --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}' > my-calculator.stats"
 
                 // Send logs and metrics to Elasticsearch
                 logstash {
@@ -57,7 +59,6 @@ pipeline {
                 }
             }
         }
-
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
