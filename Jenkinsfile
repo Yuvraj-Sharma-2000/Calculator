@@ -39,8 +39,9 @@ pipeline {
                 }
             }
         }
-        stage('Remove Docker image with no tag') {
+        stage('Remove previous build') {
             steps {
+                sh 'docker rm -f calculator'
                 sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
             }
         }
@@ -49,15 +50,14 @@ pipeline {
             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
           }
         }  
-        stage("Log details"){
-            steps {
-                timestamps {
-                      logstash{ 
-                       sh "cat ${env.BUILD_LOG}"
-                      }
-                  
-                }
-            }
+        stage('Send Logs to Logstash') {
+          steps {
+            logstashSend buildLogFile: "${env.WORKSPACE}/my-custom-logfile.log",
+                logstashHost: 'localhost',
+                logstashPort: 5044,
+                logstashSSL: false,
+                logstashPipeline: 'jenkins_logs'
+          }
         }
         stage('Ansible Deploy') {
             steps {
