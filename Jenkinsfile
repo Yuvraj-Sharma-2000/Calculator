@@ -52,12 +52,12 @@ pipeline {
         }  
         stage('Archive Log File') {
           steps {
-            archiveArtifacts '/var/lib/jenkins/workspace/scientific-calculator/my-calculator.log'
+            archiveArtifacts 'my-calculator.log'
           }
         }
         stage('Send Logs to Logstash') {
           steps {
-            stash name: 'logfile', includes: '/var/lib/jenkins/workspace/scientific-calculator/my-calculator.log'
+            stash name: 'logfile', includes: 'my-calculator.log'
             script {
               def logstashHost = 'localhost'
               def logstashPort = 5044
