@@ -59,11 +59,15 @@ pipeline {
           steps {
             stash name: 'logfile', includes: 'my-calculator.log'
             script {
-              sh "ls"
-              sh "pwd"
-              def logstashHost = 'localhost'
-              def logstashPort = 5044
-              logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashSSL: false
+//               sh "ls"
+//               sh "pwd"
+//               def logstashHost = 'localhost'
+//               def logstashPort = 5044
+//               logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashSSL: false
+                logstashSend buildLogFile: 'my-calculator.log',
+                logstashHost: 'localhost',
+                logstashPort: 5044,
+                logstashSSL: false 
             }
           }
         }
