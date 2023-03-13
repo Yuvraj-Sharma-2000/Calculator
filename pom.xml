@@ -49,6 +49,9 @@
                                  <mainClass>org.example.Main</mainClass>
                              </manifest>
                          </archive>
+                         <includes>
+                             <include>**/*Test.java</include>
+                         </includes>     
                      </configuration>
                  </plugin>
              </plugins>
