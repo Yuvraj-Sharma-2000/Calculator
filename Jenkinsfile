@@ -67,12 +67,6 @@ pipeline {
             }
           }
         }
-        stage('Generate Log File') {
-            steps {
-                sh 'echo "test log entry" > my-calculator.log'
-            }
-        }
-
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
