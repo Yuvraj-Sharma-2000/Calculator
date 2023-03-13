@@ -50,13 +50,19 @@ pipeline {
             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
           }
         }  
+        stage('Archive Log File') {
+          steps {
+            archiveArtifacts '/var/lib/jenkins/workspace/scientific-calculator/my-calculator.log'
+          }
+        }
         stage('Send Logs to Logstash') {
           steps {
-            logstashSend buildLogFile: "${env.WORKSPACE}/my-custom-logfile.log",
-                logstashHost: 'localhost',
-                logstashPort: 5044,
-                logstashSSL: false,
-                logstashPipeline: 'jenkins_logs'
+            stash name: 'logfile', includes: '/var/lib/jenkins/workspace/scientific-calculator/my-calculator.log'
+            script {
+              def logstashHost = 'localhost'
+              def logstashPort = 5044
+              logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashPipeline: 'jenkins_logs', logstashSSL: false
+            }
           }
         }
         stage('Ansible Deploy') {
@@ -71,7 +77,11 @@ pipeline {
             }
         }
     }
-
+    post {
+        always {
+          unstash 'logfile'
+        }
+      }
     options {
         skipDefaultCheckout()
         timestamps()
