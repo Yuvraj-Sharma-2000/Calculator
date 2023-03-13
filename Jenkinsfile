@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                    sh "mvn test -Dtest=src/test/java/org/example/MainTest"
+                    sh "mvn test -Dtest=src/test/java/org/example/"
                 }
             }
         stage('Image Build'){
