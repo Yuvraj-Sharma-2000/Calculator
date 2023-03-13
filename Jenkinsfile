@@ -8,8 +8,8 @@ pipeline {
         dockerImage = ''
     }
     plugins {
-          logstash: '2.5.0'
-        }
+          logstash: '2.5.0205.vd05825ed46bd'
+    }
 
 
     stages {
