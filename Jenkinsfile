@@ -65,6 +65,12 @@ pipeline {
             }
           }
         }
+        stage('MyStage') {
+          steps {
+            stash name: 'logfile', includes: 'my-calculator.log'
+            stashView 'logfile'
+          }
+        }
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
