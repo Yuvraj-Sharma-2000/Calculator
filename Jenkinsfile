@@ -49,22 +49,13 @@ pipeline {
             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
           }
         }  
-        stage("first"){
+        stage("Log details"){
             steps {
                 timestamps {
                       logstash{ 
-                       echo "hello world 1"
+                       sh "cat ${env.BUILD_LOG}"
                       }
                   
-                }
-            }
-        }
-        stage("second"){
-            steps{
-                timestamps {
-                    logstash {
-                        echo "hello world 2"
-                    }
                 }
             }
         }
