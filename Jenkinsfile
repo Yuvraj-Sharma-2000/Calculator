@@ -58,8 +58,7 @@ pipeline {
             logstashSend buildLogFile: 'jenkins.log',
                 logstashHost: 'localhost',
                 logstashPort: 5044,
-                logstashSSL: false,
-                logstashPipeline: 'jenkins_logs'
+                logstashSSL: false
           }
         }
        
