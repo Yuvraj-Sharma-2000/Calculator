@@ -20,11 +20,6 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-        stage('Test') {
-            steps {
-                    sh "mvn test -Dtest=src.test.java.org.example.MainTest"
-                }
-            }
         stage('Image Build'){
             steps{
                 sh "docker build -t yuvrajsharma2000/docker_image_calculator:latest ."
