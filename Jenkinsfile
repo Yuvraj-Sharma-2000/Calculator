@@ -7,7 +7,11 @@ pipeline {
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
-    
+    plugins {
+          logstash: '2.5.0'
+        }
+
+
     stages {
         stage('Git Pull'){
             steps{
@@ -49,7 +53,15 @@ pipeline {
             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
           }
         }
-
+        stage('Send Logs to Logstash') {
+          steps {
+            logstashSend buildLogFile: 'jenkins.log',
+                logstashHost: 'localhost',
+                logstashPort: 5044,
+                logstashSSL: false,
+                logstashPipeline: 'jenkins_logs'
+          }
+        }
        
         stage('Ansible Deploy') {
             steps {
