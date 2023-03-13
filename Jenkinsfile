@@ -61,7 +61,7 @@ pipeline {
             script {
               def logstashHost = 'localhost'
               def logstashPort = 5044
-              logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashPipeline: 'jenkins_logs', logstashSSL: false
+              logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashSSL: false
             }
           }
         }
