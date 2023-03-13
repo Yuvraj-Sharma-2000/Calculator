@@ -59,6 +59,8 @@ pipeline {
           steps {
             stash name: 'logfile', includes: 'my-calculator.log'
             script {
+              sh "ls"
+              sh "pwd"
               def logstashHost = 'localhost'
               def logstashPort = 5044
               logstashSend logstashHost: logstashHost, logstashPort: logstashPort, logstashSSL: false
