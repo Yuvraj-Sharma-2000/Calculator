@@ -5,7 +5,7 @@ pipeline {
         LANG = 'en_US.UTF-8'
     }
 
-    stages {
+    stages { 
         stage('Git Pull'){
             steps{
                 git url: 'https://github.com/Yuvraj-Sharma-2000/Calculator.git', branch: 'master',
