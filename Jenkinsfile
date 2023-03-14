@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         LANG = 'en_US.UTF-8'
+        DOCKERHUB_USERNAME = credentials('dockerhub').username
+        DOCKERHUB_PASSWORD = credentials('dockerhub').password
     }
 
     stages {
@@ -59,10 +61,6 @@ pipeline {
             }
         }
         stage('Ansible Deploy') {
-            environment {
-                DOCKERHUB_USERNAME = credentials('dockerhub').username
-                DOCKERHUB_PASSWORD = credentials('dockerhub').password
-            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                     ansiblePlaybook(
