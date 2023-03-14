@@ -15,10 +15,9 @@ pipeline {
                 credentialsId:'0b70dc81-32f2-4e04-bf3b-02073a60996b'
             }
         }
-        stage('Maven Build'){
+        stage('Maven Build and Run Tests'){
             steps{
                 sh "mvn clean install"
-                sh "mvn test"
             }
         }
         stage('Image Build'){
