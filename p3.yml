@@ -13,4 +13,3 @@
         image: yuvrajsharma2000/docker_image_calculator
         state: started  
         command: java -jar /calculator-1.0-SNAPSHOT.jar
-        restart_policy: always
