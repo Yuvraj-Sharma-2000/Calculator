@@ -34,13 +34,7 @@ pipeline {
             }
           }
         }
-
-//         stage('Remove previous build') {
-//             steps {
-//                 sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
-//             }
-//         }
-        stage('Delete Image and Containers') {
+        stage('Delete previous Image and Containers') {
             steps {
                 sh '''
                     # Get the IDs of all images with the tag <none>
