@@ -18,6 +18,7 @@ pipeline {
         stage('Maven Build'){
             steps{
                 sh "mvn clean install"
+                sh "mvn test"
             }
         }
         stage('Image Build'){
@@ -28,23 +29,45 @@ pipeline {
 
         stage('Image Deploy') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'yuvrajsharma2000', passwordVariable: 'Centra@5848')]) {
-                    sh "docker login -u yuvrajsharma2000 -p Centra@5848"
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'docker_username', passwordVariable: 'docker_password')]) {
+                    sh "docker login -u docker_username -p docker_password"
                     sh "docker push yuvrajsharma2000/docker_image_calculator:latest"
                 }
             }
         }
-        stage('Remove previous build') {
+//         stage('Remove previous build') {
+//             steps {
+//                 sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
+//             }
+//         }
+        stage('Delete Image and Containers') {
             steps {
-                sh 'docker rm -f calculator'
-                sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
+                sh '''
+                    # get the IDs of all containers with the tag <none>
+                    # NONE_CONTAINERS=$(docker ps -a | grep "<none>" | awk '{print $1}')
+
+                    # delete all of the <none> containers
+                    # for CONTAINER in $NONE_CONTAINERS
+                    # do
+                    #  docker rm $CONTAINER
+                    # done
+
+                    # get the IDs of all images with the tag <none>
+                    NONE_IMAGES=$(docker images | grep "<none>" | awk '{print $3}')
+
+                    # delete all of the <none> images
+                    for IMAGE in $NONE_IMAGES
+                    do
+                      docker rmi --force $IMAGE
+                    done
+                    
+                    for IMAGE in $NONE_IMAGES
+                    do
+                      docker rm --force $(docker ps -a | grep "$IMAGE" | awk '{print $1}') 
+                    done
+                '''
             }
         }
-//         stage('Start Container') {
-//           steps {
-//             sh "docker run -d --name calculator yuvrajsharma2000/docker_image_calculator"
-//           }
-//         }  
         stage('Ansible Deploy') {
             steps {
                 ansiblePlaybook(
