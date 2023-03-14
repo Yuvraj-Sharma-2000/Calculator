@@ -28,13 +28,14 @@ pipeline {
         }
 
         stage('Image Deploy') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'docker_username', passwordVariable: 'docker_password')]) {
-                    sh "docker login -u docker_username -p docker_password"
-                    sh "docker push yuvrajsharma2000/docker_image_calculator:latest"
-                }
+          steps {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'docker_username', passwordVariable: 'docker_password')]) {
+              sh "echo $docker_password | docker login --username $docker_username --password-stdin"
+              sh "docker push yuvrajsharma2000/docker_image_calculator:latest"
             }
+          }
         }
+
 //         stage('Remove previous build') {
 //             steps {
 //                 sh 'docker rmi --force $(docker images -f "dangling=true" -q)'
