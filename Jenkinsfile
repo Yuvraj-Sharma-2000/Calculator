@@ -3,8 +3,6 @@ pipeline {
     
     environment {
         LANG = 'en_US.UTF-8'
-        DOCKERHUB_USERNAME = credentials('dockerhub').username
-        DOCKERHUB_PASSWORD = credentials('dockerhub').password
     }
 
     stages {
@@ -70,8 +68,8 @@ pipeline {
                         colorized: true,
                         disableHostKeyChecking: true,
                         extraVars: [
-                            'jenkins_credentials_username': DOCKERHUB_USERNAME,
-                            'jenkins_credentials_password': DOCKERHUB_PASSWORD
+                            'jenkins_credentials_username': "${DOCKERHUB_USERNAME}",
+                            'jenkins_credentials_password': "${DOCKERHUB_PASSWORD}"
                         ]
                     )
                 }
