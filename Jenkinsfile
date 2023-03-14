@@ -44,28 +44,27 @@ pipeline {
         stage('Delete Image and Containers') {
             steps {
                 sh '''
-                    # get the IDs of all containers with the tag <none>
-                    # NONE_CONTAINERS=$(docker ps -a | grep "<none>" | awk '{print $1}')
-
-                    # delete all of the <none> containers
-                    # for CONTAINER in $NONE_CONTAINERS
-                    # do
-                    #  docker rm $CONTAINER
-                    # done
-
-                    # get the IDs of all images with the tag <none>
+                    # Get the IDs of all images with the tag <none>
                     NONE_IMAGES=$(docker images | grep "<none>" | awk '{print $3}')
 
-                    # delete all of the <none> images
+                    # Delete all of the <none> images
                     for IMAGE in $NONE_IMAGES
                     do
                       docker rmi --force $IMAGE
                     done
-                    
+
+                    # Delete all of the containers associated with the <none> images
                     for IMAGE in $NONE_IMAGES
                     do
-                      docker rm --force $(docker ps -a | grep "$IMAGE" | awk '{print $1}') 
-                    done
+                      # Get the container IDs for the image
+                      CONTAINER_IDS=$(docker ps -a | grep $IMAGE | awk '{print $1}')
+
+                  # Remove the containers
+                  for CONTAINER_ID in $CONTAINER_IDS
+                  do
+                    docker rm --force $CONTAINER_ID
+                  done
+                done
                 '''
             }
         }
