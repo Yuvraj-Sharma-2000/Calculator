@@ -64,7 +64,7 @@ pipeline {
                 DOCKERHUB_PASSWORD = credentials('dockerhub').password
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'my-docker-hub-creds', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
                     ansiblePlaybook(
                         installation: 'Ansible',
                         inventory: 'inventory',
