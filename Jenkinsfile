@@ -3,9 +3,9 @@ pipeline {
     
     environment {
         LANG = 'en_US.UTF-8'
-        registry = "yuvrajsharma2000/calculator"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
+//         registry = "yuvrajsharma2000/calculator"
+//         registryCredential = 'dockerhub'
+//         dockerImage = ''
     }
 
     stages {
