@@ -13,9 +13,9 @@
         name: yuvrajsharma2000/docker_image_calculator
         source: pull
 
-#     - name: Run Docker container
-#       docker_container:
-#         name: my-calculator
-#         image: yuvrajsharma2000/docker_image_calculator
-#         state: started  
-#         command: java -jar /calculator-1.0-SNAPSHOT.jar
+    - name: Run Docker container
+      docker_container:
+        name: my-calculator
+        image: yuvrajsharma2000/docker_image_calculator
+        state: started  
+        command: docker run -it yuvrajsharma2000/docker_image_calculator /bin/bash
