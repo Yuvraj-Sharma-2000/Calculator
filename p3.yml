@@ -18,4 +18,4 @@
         name: my-calculator
         image: yuvrajsharma2000/docker_image_calculator
         state: started  
-        command: docker run -it yuvrajsharma2000/docker_image_calculator /bin/bash
+        command: /bin/bash
