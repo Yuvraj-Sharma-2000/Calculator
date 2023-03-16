@@ -22,3 +22,10 @@ This will ask for password of that user, on validation you can login to their us
 ```
 ssh ansible_usr@192.168.0.3
 ```
+
+You will have an image named yuvrajsharma2000/docker_image_calculator:latest in your docker images
+Start and run the image
+```
+docker images
+docker run -it <image_name>
+```
