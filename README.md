@@ -27,5 +27,5 @@ You will have an image named yuvrajsharma2000/docker_image_calculator:latest in 
 Start and run the image
 ```
 docker images
-docker run -it <image_name>
+docker run -it yuvrajsharma2000/docker_image_calculator
 ```
