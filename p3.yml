@@ -23,9 +23,10 @@
         command: /bin/bash
         
     - name: Check if volume is mounted
-      shell: docker exec my-calculator ls /logs
+      shell: docker inspect -f '{{ json .Mounts }}' my-calculator
       register: result
 
     - debug:
-        msg: "Volume mounted successfully"
-      when: result.stdout is defined
+        msg: "Volume is mounted"
+      when: "'/var/logs/myapp' in result.stdout"
+
