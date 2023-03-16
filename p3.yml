@@ -21,3 +21,11 @@
         volumes:
           - /var/logs/myapp:/logs
         command: /bin/bash
+        
+    - name: Check if volume is mounted
+      shell: docker exec my-calculator ls /logs
+      register: result
+
+    - debug:
+        msg: "Volume mounted successfully"
+      when: result.stdout is defined
