@@ -18,4 +18,6 @@
         name: my-calculator
         image: yuvrajsharma2000/docker_image_calculator
         state: started  
+        volumes:
+          - /var/logs/myapp:/logs
         command: /bin/bash
