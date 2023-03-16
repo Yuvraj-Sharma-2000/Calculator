@@ -20,4 +20,5 @@
         state: started  
         volumes:
           - /var/logs/myapp:/logs
-        command: /bin/bash
+        command: java -Dlog4j.configurationFile=/logs/log4j2.xml  
+#         command: /bin/bash
