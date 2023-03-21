@@ -39,7 +39,7 @@ public class Main {
                     logger.info("Got result: "+squareRootResult);
                     break;
                 case 2:
-                    logger.info("Operation: SQUARE ROOT");
+                    logger.info("Operation: FACTORIAL");
                     System.out.print("Enter a number: ");
                     int factorialNumber = scanner.nextInt();
                     logger.info("Number entered: "+factorialNumber);
@@ -48,7 +48,7 @@ public class Main {
                     logger.info("Got result: "+factorialResult);
                     break;
                 case 3:
-                    logger.info("Operation: SQUARE ROOT");
+                    logger.info("Operation: NATURAL LOG");
                     System.out.print("Enter a number: ");
                     double naturalLogNumber = scanner.nextDouble();
                     logger.info("Number entered: "+naturalLogNumber);
@@ -57,7 +57,7 @@ public class Main {
                     logger.info("Got result: "+naturalLogResult);
                     break;
                 case 4:
-                    logger.info("Operation: SQUARE ROOT");
+                    logger.info("Operation: POWER FUNCTION");
                     System.out.print("Enter the base: ");
                     double powerBase = scanner.nextDouble();
                     logger.info("Base entered: "+powerBase);
