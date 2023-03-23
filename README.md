@@ -1,7 +1,7 @@
 # Calculator
 SPE mini project
 
-Roadmap for Scientific Calculator Program:
+Roadmap for  Scientific Calculator Program:
 
 1) Develop the scientific calculator program with menu-driven operations for Square root, Factorial, Natural logarithm, and Power function.
 2) Initialize a source control management tool such as Git and create a repository for the scientific calculator program.
