@@ -13,7 +13,7 @@ Roadmap for  Scientific Calculator Program:
 8) Deploy the scientific calculator program on your local machine or any other 3rd party cloud.
 9) Monitor the scientific calculator program using the ELK stack. Generate log files for the mini project and pass them to the ELK stack for monitoring.
 
-## Ansible
+## Ansible 
 Ansible is a tool that automates repetitive tasks that system administrators and developers perform to configure and manage their systems. It uses a simple language to describe what needs to be done, and then executes those tasks on one or more systems remotely, without needing to install any additional software on the target systems.
 
 Ansible simplifies automation by providing a large number of pre-built modules that can be used to automate common tasks, such as managing packages, configuring servers, and deploying applications. It is also designed to integrate with other tools and systems, making it a powerful and versatile automation tool.
