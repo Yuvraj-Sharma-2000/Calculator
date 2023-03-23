@@ -22,4 +22,4 @@
         interactive: yes
         volumes:
           - /var/logs/myapp:/logs
-        command: /bin/bash  
+        command: /bin/bash
