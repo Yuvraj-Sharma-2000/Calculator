@@ -12,20 +12,12 @@
       docker_image:
         name: yuvrajsharma2000/docker_image_calculator
         source: pull
-
-    - name: Create & Start Calculator Docker Container
+        
+    - name: Run Docker container
       docker_container:
         name: my-calculator
         image: yuvrajsharma2000/docker_image_calculator
-        state: started
-        tty: yes
-        interactive: yes
-        
-#     - name: Run Docker container
-#       docker_container:
-#         name: my-calculator
-#         image: yuvrajsharma2000/docker_image_calculator
-#         state: started  
-#         volumes:
-#           - /var/logs/myapp:/logs
-#         command: java -Dlog4j.configurationFile=/logs/log4j2.xml  
+        state: started  
+        volumes:
+          - /var/logs/myapp:/logs
+        command: java -Dlog4j.configurationFile=/logs/log4j2.xml  
