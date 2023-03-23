@@ -3,7 +3,7 @@ SPE mini project
 
 Roadmap for  Scientific Calculator Program:
 
-1) Develop the scientific calculator program with menu-driven operations for Square root, Factorial, Natural logarithm, and Power function.
+1) Develop the  scientific calculator program with menu-driven operations for Square root, Factorial, Natural logarithm, and Power function.
 2) Initialize a source control management tool such as Git and create a repository for the scientific calculator program.
 3) Write unit tests for the calculator program using testing frameworks such as JUnit.
 4) Integrate the testing framework with the source control management tool using tools like Jenkins.
