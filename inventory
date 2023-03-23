@@ -1,3 +1,2 @@
 [containers]
 Yuvraj ansible_host=127.0.0.1 ansible_user="{{ ansible_credentials_username }}" ansible_ssh_pass="{{ ansible_credentials_password }}" ansible_sudo_pass=password
-Utkarsh ansible_host=192.168.174.1 ansible_user=user1 ansible_ssh_pass=25809764 ansible_sudo_pass=25809764
