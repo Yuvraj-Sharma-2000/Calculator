@@ -26,7 +26,7 @@ copy ssh into the host defined in inventory file like
 ```
 ssh-copy-id ansible_usr@192.168.0.3
 ```
-This will ask for password of that user, on validation you can login to their user as 
+This will ask for password of that user, on validation you can login to their u ser as 
 ```
 ssh ansible_usr@192.168.0.3
 ```
